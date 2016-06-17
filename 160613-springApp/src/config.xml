@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+   <bean id="myBean" class="test.SayHello" />
+   <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      id="dataSource">
+      <property name="driverClassName"> <!-- getParameter와 같은역할을 한다. -->
+         <value>oracle.jdbc.driver.OracleDriver</value>
+      </property>
+      <property name="url">
+         <value>jdbc:oracle:thin:@localhost:1521:XE</value>
+      </property>
+      <property name="username">
+         <value>hr</value>
+      </property>
+      <property name="password">
+         <value>hr</value>
+      </property>
+   </bean>
+
+   <bean id="addrDao" class="addr.DaoImpl">
+      <property name="dataSource">
+         <ref bean="dataSource" />
+      </property>
+   </bean>
+
+   <bean id="addrService" class="addr.ServiceImpl" p:dao-ref="addrDao"/>
+
+    <!-- 
+   <bean id="addrDao" class="addr.DaoImpl">
+   <constructor-arg>
+      <ref bean ="dataSource"/>
+   </constructor-arg>
+   </bean> 
+
+   <bean id = "addrService" class ="addr.ServiceImpl">
+   <constructor-arg>
+      <ref bean = "addrDao"/>
+   </constructor-arg>
+   </bean>
+ -->
+
+   <bean name="PropTest" class="test.PropTest">
+      <property name="p">
+         <props>
+            <prop key="ip">192.168.0.14</prop>
+            <prop key="id">5000</prop>
+            <prop key="pwd">5000</prop>
+         </props>
+      </property>
+   </bean>
+   
+   
+   <bean id = "adviceTest" class="myAdvice.AdviceTest"/>
+   <bean id = "performanceTraceAdvice" class ="myAdvice.ProfilingAdvice"/>
+   <aop:config>
+   
+<!--       <aop:aspect id = "traceAspect1" ref="performanceTraceAdvice">
+         <aop:pointcut expression="execution(public * myAdvice.AdviceTest.*(..))" id="publicMethod"/> 
+         접근제어자 :: public // classname : AdviceTest // 모든 매서드를 포함(..)
+         around :: 실행되기 전 후에 공통매서드 실행
+         
+         <aop:around pointcut-ref = "publicMethod" method="trace"/>
+      </aop:aspect>  
+      
+      <aop:aspect id = "traceAspect2" ref="performanceTraceAdvice">
+         <aop:pointcut expression="execution(public * myAdvice.AdviceTest.*(..))" id="returning"/> 
+         <aop:after-returning pointcut-ref = "returning" method="printStr" returning = "ret"/>
+      </aop:aspect>
+      -->
+      
+      
+      <aop:aspect id = "traceAspect3" ref="performanceTraceAdvice">
+         <aop:pointcut expression="execution(public * addr..*(..))" id="mem"/> 
+         <aop:around pointcut-ref = "mem" method="trace" />
+      </aop:aspect>
+      
+      
+   </aop:config>
+   
+   
+</beans>
