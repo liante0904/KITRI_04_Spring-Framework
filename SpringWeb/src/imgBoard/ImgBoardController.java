@@ -2,17 +2,11 @@ package imgBoard;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import javax.servlet.Filter;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import imgBoard.img.Img;
@@ -76,14 +70,29 @@ public class ImgBoardController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	@RequestMapping(value = "/imgBoard/addrep.do")
-	public String addrep(ImgRep ir){
-		repService.addRep(ir);
-		return "redirect:/imgBoard/list.do";
+	
+
+	// 비동기 코드
+	@RequestMapping(value = "/imgBoard/writeRep.do")
+	public ModelAndView writeRep(ImgRep ir){
+		ModelAndView mav = new ModelAndView("imgBoard/writeRep");
+		System.out.println(ir.getContent());
+		repService.addRep(ir); //댓글 추가
+		ArrayList<ImgRep> list = repService.getAll(ir.getImgNum());
+		// 해당 이미지의 댓글만 db에서 받아 json으로 받아온다.
+		mav.addObject("list", list);
+		return mav;
 	}
-	@RequestMapping(value = "/imgBoard/delrep.do")
-	public String delrep(int num){
-		repService.delImgrep(num);
-		return "redirect:/imgBoard/list.do";
+	
+	@RequestMapping(value = "/imgBoard/deleteRep.do")
+	public ModelAndView deleteRep(@RequestParam(value="num") int num){
+		ModelAndView mav = new ModelAndView("/imgBoard/writeRep");
+		int imgNum = repService.getRep(num).getImgNum();
+		repService.delImgrep(num); // 댓글 삭제
+		ArrayList<ImgRep> list = repService.getAll(imgNum);
+		mav.addObject("list", list);
+		return mav;
 	}
+	
+	
 }
