@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kitri.myapp.member.JoinMapper">
+
+	<resultMap type="com.kitri.myapp.member.Join" 
+	id="JoinResultMap">
+		<result property="id" column="ID" />
+		<result property="pwd" column="PWD" />
+		<result property="name" column="NAME" />
+		<result property="email" column="email" />
+	</resultMap>
+
+	
+	<select id="select" resultMap="JoinResultMap"
+	parameterType="String">
+		select * from join where id = #{id}
+	</select>
+	
+	
+		<insert id="insert" 
+	parameterType="com.kitri.myapp.member.Join" >
+		insert into join values(#{id}, #{pwd}, #{name}, #{email})
+	</insert>
+	
+	
+	
+	
+	<update id="update" parameterType="com.kitri.myapp.member.Join">
+	update join set pwd=#{pwd}, name=#{name}, email=#{email} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete join where id=#{id}
+	</delete>
+
+
+</mapper>

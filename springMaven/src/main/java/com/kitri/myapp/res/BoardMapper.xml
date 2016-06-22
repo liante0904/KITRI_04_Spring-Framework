@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kitri.myapp.board.BoardMapper">
+
+	<resultMap type="com.kitri.myapp.board.Article" 
+	id="ArticleResultMap">
+		<result property="num" column="num" />
+		<result property="w_date" column="w_date" />
+		<result property="writer" column="writer" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="parent" column="parent" />
+	</resultMap>
+
+	
+	<select id="select" resultMap="ArticleResultMap"
+	parameterType="int">
+		select * from board where num=#{num}
+	</select>
+	
+	
+		<insert id="insert" 
+	parameterType="com.kitri.myapp.board.Article" >
+		insert into board values(seq_board.nextval, 
+			sysdate, #{writer}, #{title}, #{content}, #{parent})
+	</insert>
+	
+	
+	
+	<update id="update" parameterType="com.kitri.myapp.board.Article">
+	update board set w_date=sysdate, title=#{title}, content=#{content}
+	 where num=#{num}
+				</update>
+	
+	<delete id="delete" parameterType="int">
+		delete board where num=#{num}
+	</delete>
+	
+	
+		<select id="selectAll" resultMap="ArticleResultMap">
+		select * from board where parent=0 order by num
+	</select>
+	
+
+		<select id="selectByParentNum" resultMap="ArticleResultMap"
+		parameterType="int">
+		select * from board where parent=#{parent} order by num
+	</select>
+	
+			<select id="selectByWriter" resultMap="ArticleResultMap"
+		parameterType="String">
+		select * from board where writer=#{writer} order by num
+	</select>
+	
+				<select id="selectByTitle" resultMap="ArticleResultMap"
+		parameterType="String">
+		select * from board where title=#{title} order by num
+	</select>
+
+</mapper>
