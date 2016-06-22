@@ -37,7 +37,7 @@ public class BoardController {
 		ArrayList<Article> reps = 
 		(ArrayList<Article>) service.getArticleByParentNum(num);
 		mav.addObject("a", a);
-		mav.addObject("reps", reps);
+		mav.addObject("repsd", reps);
 		return mav;
 	}
 	
