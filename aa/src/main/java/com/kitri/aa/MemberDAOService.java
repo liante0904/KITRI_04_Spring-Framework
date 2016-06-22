@@ -56,5 +56,8 @@ public class MemberDAOService implements MemberDAO {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.deleteMember(num);
 	}
+	
+	
+
 
 }

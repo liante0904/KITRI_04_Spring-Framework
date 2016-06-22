@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kitri</groupId>
 	<artifactId>aa</artifactId>
-	<name>aa</name>
+	<name>160622 Spring_mybatis_maven_example</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

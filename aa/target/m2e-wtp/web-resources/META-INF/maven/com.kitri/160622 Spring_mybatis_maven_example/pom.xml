@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kitri</groupId>
-	<artifactId>aa</artifactId>
-	<name>160622 Spring_mybatis_maven_example</name>
+	<artifactId>160622 Spring_mybatis_maven_example</artifactId>
+	<name>aa</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

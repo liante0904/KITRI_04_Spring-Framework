@@ -13,13 +13,14 @@
 		<result property="address" column="ADDRESS" />
 	</resultMap>
 
+	
 	<select id="getMembers" resultMap="MemberResultMap">
 		SELECT * FROM addr
 	</select>
 	
 	<select id="getMember" resultMap="MemberResultMap" 
 	parameterType="int">
-		SELECT * FROM addr where name=#{num}
+		SELECT * FROM addr where num=#{num}
 	</select>
 	
 	<insert id="insertMember" 
@@ -36,5 +37,6 @@
 	<delete id="deleteMember" parameterType="String">
 		delete addr where num=#{num}
 	</delete>
+
 
 </mapper>

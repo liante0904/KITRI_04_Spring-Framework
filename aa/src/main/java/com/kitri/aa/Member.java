@@ -1,10 +1,10 @@
 package com.kitri.aa;
 
 public class Member {
-	int num;
-	String name;
-	String tel;
-	String address;
+	private int num;
+	private String name;
+	private String tel;
+	private String address;
 	public Member(){}
 	public Member(int num, String name, String tel, String address) {
 		this.num = num;
